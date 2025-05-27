@@ -1,4 +1,4 @@
-// app/api/products/route.ts
+// app/api/product/route.ts
 //GET products
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@/generated/prisma";
