@@ -1,6 +1,6 @@
 // app/api/product/route.ts
 //GET products
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@/generated/prisma";
 import { Product } from "@/types/product"; 
 
