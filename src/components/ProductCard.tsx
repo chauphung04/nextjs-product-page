@@ -242,7 +242,7 @@ export default function ProductCard({ initialProduct }: Props) {
             {product.description && (
               <tr className="bg-gray-50">
                 <td className="py-2 px-3 font-medium text-gray-700 w-1/3">Description</td>
-                <td className="py-2 px-3 text-gray-800">{product.description}</td>
+                <td className="py-2 px-3 text-gray-800"dangerouslySetInnerHTML={{ __html: product.description }}></td>
               </tr>
             )}
             {product.itemWeight && (
