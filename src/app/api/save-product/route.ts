@@ -1,6 +1,6 @@
 // api/save-product/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@/generated/prisma";
+import { PrismaClient, Prisma } from "@/generated/prisma";
 import { Product } from "@/types/product";
 
 const prisma = new PrismaClient();
@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
 
     // Only remove undefined values (keep null and other falsy values)
     const cleanUpdateData = Object.fromEntries(
-      Object.entries(updateData).filter(([_, v]) => v !== undefined)
+      Object.entries(updateData).filter(([, v]) => v !== undefined)
     );
     console.log("Save-Product: Data prepared for Prisma update:", JSON.stringify(cleanUpdateData, null, 2));
 
@@ -108,7 +108,8 @@ export async function POST(req: NextRequest) {
 
   } catch (err) {
     console.error("Save error:", err);
-    if (err instanceof Error && 'code' in err && (err as any).code === 'P2025') {
+    // Use Prisma.PrismaClientKnownRequestError for type safety
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
         return NextResponse.json({ success: false, error: "Product not found for update with the provided ID." }, { status: 404 });
     }
     if (err instanceof Error) {

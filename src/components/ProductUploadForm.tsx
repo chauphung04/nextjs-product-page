@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Product, ProductCreate, Measure } from "@/types/product";
+import { ProductCreate} from "@/types/product";
 import { FiChevronRight } from "react-icons/fi";
 
 type ProductUploadFormProps = {

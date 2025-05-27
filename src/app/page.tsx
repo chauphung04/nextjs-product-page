@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { FiUpload, FiX } from "react-icons/fi"; 
 import ProductCard from "@/components/ProductCard";
 import ProductUploadForm from "@/components/ProductUploadForm";
-import { Product, ProductCreate } from "@/types/product"; // Ensure ProductCreate is imported
+import { Product, ProductCreate } from "@/types/product"; 
 
 export default function Home() {
   // Initialize products state as an empty array, as data will be fetched dynamically
@@ -32,9 +32,14 @@ export default function Home() {
       // The API should return an array of products, ensure it matches your Product type
       setProducts(responseData.products);
       console.log("Products fetched from DB:", responseData.products);
-    } catch (err: any) {
+    } catch (err: unknown) { 
       console.error("Error fetching all products:", err);
-      setError(err.message || "Failed to load products.");
+      // Safely access error properties
+      if (err instanceof Error) {
+        setError(err.message || "Failed to load products.");
+      } else {
+        setError("Failed to load products: An unknown error occurred.");
+      }
     } finally {
       setLoading(false);
     }
@@ -65,9 +70,14 @@ export default function Home() {
       setFormVisible(false);
       console.log("Product added to database and UI:", addedProduct);
 
-    } catch (error: any) {
+    } catch (error: unknown) { 
       console.error("Error adding product:", error);
-      setError(error.message || "Failed to add product.");
+      // Safely access error properties
+      if (error instanceof Error) {
+        setError(error.message || "Failed to add product.");
+      } else {
+        setError("Failed to add product: An unknown error occurred.");
+      }
       // TODO: Implement user feedback (e.g., toast notification) for the error
     }
   };

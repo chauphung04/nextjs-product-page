@@ -6,7 +6,7 @@ import { Product } from "@/types/product";
 
 const prisma = new PrismaClient();
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const productsFromDb = await prisma.product.findMany({});
 
